@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Addition Puzzle</title>
+<style>
+  #resultBox {
+    width: 300px;
+    height: 100px;
+    border: 2px solid black;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>算数ing</h2>
+
+<div id="puzzle">
+  <p>请计算以下两个数字的和：</p>
+  <a id="num1"></a>
+  <a>+</a>
+  <a id="num2"></a>
+  <p></p>
+  <form id="puzzleForm">
+    <label for="answer">幺幺幺，你的回答是？！</label>
+    <input type="number" id="answer" required>
+    <br><br>
+    <button type="submit">解决</button>
+  </form>
+</div>
+
+<div id="resultBox"></div>
+
+<script>
+  function generateRandomNumber() {
+    return Math.floor(Math.random() * 10) + 1;
+  }
+
+  function generatePuzzle() {
+    var num1 = generateRandomNumber();
+    var num2 = generateRandomNumber();
+    document.getElementById('num1').textContent = num1;
+    document.getElementById('num2').textContent = num2;
+    return num1 + num2;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    generatePuzzle();
+  });
+
+  document.getElementById('puzzleForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var userAnswer = parseInt(document.getElementById('answer').value);
+    var correctAnswer = parseInt(document.getElementById('num1').textContent) + parseInt(document.getElementById('num2').textContent);
+    var resultMessage = "";
+
+    if (userAnswer === correctAnswer) {
+      resultMessage = "恭喜你，答对了！";
+    } else {
+      resultMessage = "抱歉，答错了，正确答案是：" + correctAnswer;
+    }
+
+    document.getElementById('resultBox').innerHTML = resultMessage;
+    generatePuzzle(); // 生成新的题目
+  });
+</script>
+
+</body>
+</html>
